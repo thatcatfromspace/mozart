@@ -5,16 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    fontFamily: {
-      hero: ["Playfair Display", "sans-serif"],
-      sans: ["Noto Sans", "sans-serif"],
-      dynalight: ["Dynalight", "sans-serif"],
-      zeyada: ["Zeyada", "sans-serif"],
-      satisfy: ["Satisfy", "sans-serif"],
-      poppins: ["Poppins", "sans-serif"],
-      brush: ["Comforter Brush", "sans-serif"],
-    },
+  theme: { /* font optimizations moved to layout.js */
     extend: {
       colors: {
         mahogany: {
