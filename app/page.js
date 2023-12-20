@@ -41,7 +41,6 @@ export default function Home() {
     "authentic",
     "expressive",
     "versatile",
-    "one-of-a-kind"
   ];
   
   const fancyFonts = [dynalight, zeyada, satisfy, comforterBrush];
@@ -73,7 +72,7 @@ export default function Home() {
               {fancyText[Math.floor(Math.random() * fancyText.length)]}.{" "}
             </span>
           </div>
-          <div className={`flex ${poppins.className} text-xl mt-5`}>
+          <div className={`flex ${poppins.className} text-xl mt-5 overflow-clip`}>
             Let the world know about it.&nbsp;
             <span className="flex hover:underline hover:-translate-y-1 transition-transform cursor-pointer overflow-clip">
               Try Mozart
