@@ -29,7 +29,7 @@
     "**/*.tsx",
     "**/*.ts",
     "types.d.ts"
-  ],
+, "app/login/page.js"  ],
   "exclude": [
     "node_modules"
   ],

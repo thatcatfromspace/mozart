@@ -1,6 +1,7 @@
 import Image from "next/image";
 import girl from "../public/mozart-girl.png";
-import { Playfair_Display, Dynalight, Zeyada, Satisfy, Poppins, Comforter_Brush } from 'next/font/google'
+import Link from "next/link";
+import { Playfair_Display, Dynalight, Zeyada, Satisfy, Poppins, Comforter_Brush } from 'next/font/google';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -53,9 +54,9 @@ export default function Home() {
         </div>
         <div>
           <span className={`${poppins.className} me-10`}> How it works </span>
-          <button className={`${poppins.className} bg-gunmetal-200 text-alice_blue-700 px-5 py-[5px] rounded-full hover:bg-gunmetal-200/70 transition-colors`}>
+          <Link href={"./login"}><button className={`${poppins.className} bg-gunmetal-200 text-alice_blue-700 px-5 py-[5px] rounded-full hover:bg-gunmetal-200/70 transition-colors`}>
             Login
-          </button>
+          </button></Link>
         </div>
       </nav>
       <div className="flex place-self-center justify-center items-center mt-36 px-20">
