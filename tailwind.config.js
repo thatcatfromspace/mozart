@@ -5,7 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: { /* font optimizations moved to layout.js */
+  theme: { /* font optimizations moved to @/fonts.js */
     extend: {
       colors: {
         mahogany: {

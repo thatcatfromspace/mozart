@@ -1,37 +1,14 @@
 import Image from "next/image";
 import girl from "../public/mozart-girl.png";
 import Link from "next/link";
-import { Playfair_Display, Dynalight, Zeyada, Satisfy, Poppins, Comforter_Brush } from 'next/font/google';
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['500']
-})
-
-const dynalight = Dynalight({
-  subsets: ['latin'],
-  weight: '400'
-})
-
-const zeyada = Zeyada({
-  subsets: ['latin'],
-  weight: ['400']
-})
-
-const satisfy = Satisfy({
-  subsets: ['latin'],
-  weight: ['400']
-})
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400']
-})
-
-const comforterBrush = Comforter_Brush({
-  subsets: ['latin'],
-  weight: '400',
-})
+import {
+  playfair,
+  dynalight,
+  zeyada,
+  satisfy,
+  poppins,
+  comforterBrush,
+} from "./fonts";
 
 export default function Home() {
   const fancyText = [
@@ -42,8 +19,16 @@ export default function Home() {
     "authentic",
     "expressive",
     "versatile",
+    "tantalizing",
+    "regal",
+    "unrivaled",
+    "ethereal",
+    "opulent",
+    "exceptional",
+    "mesmeric",
+    "classy",
   ];
-  
+
   const fancyFonts = [dynalight, zeyada, satisfy, comforterBrush];
 
   return (
@@ -54,9 +39,13 @@ export default function Home() {
         </div>
         <div>
           <span className={`${poppins.className} me-10`}> How it works </span>
-          <Link href={"./login"}><button className={`${poppins.className} bg-gunmetal-200 text-alice_blue-700 px-5 py-[5px] rounded-full hover:bg-gunmetal-200/70 transition-colors`}>
-            Login
-          </button></Link>
+          <Link href={"./login"}>
+            <button
+              className={`${poppins.className} bg-gunmetal-200 text-alice_blue-700 px-5 py-[5px] rounded-full hover:bg-gunmetal-200/70 transition-colors`}
+            >
+              Login
+            </button>
+          </Link>
         </div>
       </nav>
       <div className="flex place-self-center justify-center items-center mt-36 px-20">
@@ -66,17 +55,20 @@ export default function Home() {
             <br />
             <span
               className={`${
-                fancyFonts[Math.floor(Math.random() * fancyFonts.length)].className
+                fancyFonts[Math.floor(Math.random() * fancyFonts.length)]
+                  .className
               } text-7xl`}
             >
               {" "}
               {fancyText[Math.floor(Math.random() * fancyText.length)]}.{" "}
             </span>
           </div>
-          <div className={`flex ${poppins.className} text-xl mt-5 overflow-clip`}>
+          <div
+            className={`flex ${poppins.className} text-xl mt-5 overflow-clip`}
+          >
             Let the world know about it.&nbsp;
             <span className="flex hover:underline hover:-translate-y-1 transition-transform cursor-pointer overflow-clip">
-              Try Mozart
+              <Link href={"./login"}>Try Mozart</Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
