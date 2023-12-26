@@ -7,7 +7,7 @@ import astronaut from "../../public/astronaut.json";
 import { redirectToAuthCodeFlow, getAccessToken } from "./auth";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { poppins, playfair } from "../fonts";
+import { poppins, playfair } from "../components/fonts";
 
 const Page = () => {
   const cookies = new Cookies();
@@ -55,7 +55,7 @@ const Page = () => {
           <div className="flex items-center">
             <span className={`${playfair.className} text-3xl`}> MOZART. </span>
           </div>
-          <div className="flex justify-center mt-56 mx-96 p-6 rounded-2xl">
+          <div className="flex justify-center mt-24 mx-96 p-6 rounded-2xl">
             <div className="flex-col items-center min-w-[450px]">
               <div className="flex items-center mt-32">
                 <span

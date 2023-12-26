@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { poppins } from "./fonts";
 
 export default function DropdownComponent({
   userName,
@@ -110,7 +111,7 @@ export default function DropdownComponent({
   return (
     <div>
       <Dropdown as="div" className="relative inline-block">
-        <Dropdown.Button className="flex px-4 items-center hover:opacity-75 bg-keppel-700 transition-colors active:bg-keppel-500 py-2 rounded-full shadow-sm text-black font-medium">
+        <Dropdown.Button className={`${poppins.className} flex px-4 items-center hover:opacity-75 bg-keppel-700 transition-colors active:bg-keppel-500 py-2 rounded-full shadow-sm text-black font-medium overflow-ellipsis`}>
           <Image
             src={userProfile}
             alt="user profile picture"
@@ -125,14 +126,14 @@ export default function DropdownComponent({
           <Link href={profileURL} target="_blank">
             <Dropdown.Item
               as="button"
-              className="w-full rounded-md text-center py-2 hover:bg-keppel-500"
+              className={`${poppins.className} w-full rounded-md text-center py-2 hover:bg-keppel-500`}
             >
               Spotify Profile
             </Dropdown.Item>
           </Link>
           <Dropdown.Item
             as="button"
-            className="w-full rounded-md text-center py-2 hover:bg-keppel-500"
+            className={`${poppins.className} w-full rounded-md text-center py-2 hover:bg-keppel-500`}
             onClick={signOutFunction}
           >
             Sign Out

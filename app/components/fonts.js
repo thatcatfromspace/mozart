@@ -4,7 +4,7 @@
  * resolution. Until production rollout, fonts
  * have to be imported to every page separately. 
  */
-import { Playfair_Display, Dynalight, Zeyada, Satisfy, Poppins, Comforter_Brush } from 'next/font/google';
+import { Playfair_Display, Dynalight, Zeyada, Satisfy, Poppins, Comforter_Brush, Noto_Sans } from 'next/font/google';
 
 export const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -36,4 +36,9 @@ export const poppins = Poppins({
 export const comforterBrush = Comforter_Brush({
   subsets: ['latin'],
   weight: '400',
+})
+
+export const notoSans = Noto_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500'],
 })
