@@ -39,6 +39,17 @@ const DashboardComponent = () => {
     }
   };
 
+  const getCurrentlyPlayingTrack = () => {
+   axios
+      .get("https://api.spotify.com/v1/me/player/currently-playing", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+  }
+
   return (
     <div className="[height:100%] [min-height:100vh] bg-alice_blue-400 px-14 py-8">
       <nav className="flex justify-between items-center">
@@ -91,7 +102,8 @@ const DashboardComponent = () => {
             </div>
           </div>
         </div>
-      </main>s
+        <div><button className="px-4 py-2 bg-green-400 rounded-full" onClick={getCurrentlyPlayingTrack}> Get playback state </button></div>
+      </main>
     </div>
   );
 };
