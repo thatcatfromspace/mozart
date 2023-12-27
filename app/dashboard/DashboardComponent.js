@@ -15,7 +15,6 @@ const DashboardComponent = () => {
   async function getData() {
     axios
       .get("https://api.spotify.com/v1/me", {
-        method: "GET",
         headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
       })
       .then((res) => {
@@ -42,7 +41,6 @@ const DashboardComponent = () => {
   const getCurrentlyPlayingTrack = () => {
    axios
       .get("https://api.spotify.com/v1/me/player/currently-playing", {
-        method: "GET",
         headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
       })
       .then((res) => {
