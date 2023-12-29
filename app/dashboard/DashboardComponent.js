@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import DropdownComponent from "../components/Dropdown";
 import { useEffect, useState } from "react";
 import { playfair, poppins, notoSans } from "../components/fonts";
+import Player from "./Player";
 
 const DashboardComponent = () => {
   const cookies = new Cookies();
@@ -18,7 +19,6 @@ const DashboardComponent = () => {
         headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
       })
       .then((res) => {
-        console.log(res.data);
         setDisplayName(res.data.display_name);
         setDisplayURL(res.data.images[0].url);
         setprofileURL(res.data.external_urls.spotify);
@@ -38,18 +38,8 @@ const DashboardComponent = () => {
     }
   };
 
-  const getCurrentlyPlayingTrack = () => {
-   axios
-      .get("https://api.spotify.com/v1/me/player/currently-playing", {
-        headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-  }
-
   return (
-    <div className="[height:100%] [min-height:100vh] bg-alice_blue-400 px-14 py-8">
+    <div className="[height:100%] [min-height:100vh] bg-alice_blue-400 px-14 pt-8">
       <nav className="flex justify-between items-center">
         <div className="flex items-center">
           <span className={`${playfair.className} text-3xl`}> MOZART. </span>
@@ -63,6 +53,7 @@ const DashboardComponent = () => {
           />
         </div>
       </nav>
+      <Player />
       <main>
         <div className="flex justify-start pt-10">
           <div id="top-artists" className="block">
@@ -100,7 +91,6 @@ const DashboardComponent = () => {
             </div>
           </div>
         </div>
-        <div><button className="px-4 py-2 bg-green-400 rounded-full" onClick={getCurrentlyPlayingTrack}> Get playback state </button></div>
       </main>
     </div>
   );
