@@ -98,7 +98,7 @@ const Player = () => {
           </svg>
         </div>
         <div>
-          {!isPlaying.current ? (
+          {!isPaused.current ? (
             <svg
               viewBox="0 0 500 1000"
               fill="black"
