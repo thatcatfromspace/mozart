@@ -6,11 +6,4 @@ export async function GET(req: NextRequest, { params }) {
   const rows = await conn.query(
     "SELECT * FROM access_tokens;"
   );
-  console.log(typeof rows);
-  
-  const userData = [];
-  for (let user = 0; user < rows.length; user++) {
-    userData.push({ id: rows[user] });
-  }
-  return NextResponse.json({ data: userData });
 }

@@ -16,6 +16,7 @@ const Player = () => {
     trackAlbum: "",
     trackName: "",
     trackAlbumArt: "",
+    timestamp: 0
   });
 
   const cookies = new Cookies();
@@ -68,14 +69,32 @@ const Player = () => {
               trackAlbum: res.data.item.album.name,
               trackName: res.data.item.name,
               trackAlbumArt: res.data.item.album.images[2].url,
+              timestamp: res.data.timestamp
             });
           }
           songTimeOutFunction();
         });
     }
+    function postDataToDatabase() {
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
+        })
+        .then((res) => {
+          axios.post(`http://localhost:3000/api/streams/${res.data.id}`, {
+            username: res.data.display_name,
+            timestamp: currentTrackData.timestamp,
+            track: currentTrackData.trackName,
+            album: currentTrackData.trackAlbum,
+            artist: currentTrackData.trackArtist,
+            album_thumbnail_url: currentTrackData.trackAlbumArt,
+          });
+        });
+    }
     if (!effectHasRan.current) {
       /* prevent useEffect from running twice, remove for prod */
       fetchPlaybackDataFromSpotify();
+      postDataToDatabase();
       effectHasRan.current = true;
     } else {
       effectHasRan.current = false;

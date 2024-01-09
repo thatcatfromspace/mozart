@@ -6,6 +6,7 @@ const pool = mariadb.createPool({
   password: "dinugaitu",
   database: "MOZART",
   connectionLimit: 10,
+  timeout: 600000
 });
 
 module.exports = pool;

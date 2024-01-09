@@ -59,7 +59,7 @@ export default function Home() {
     <div className="[height:100%] [min-height:100vh] bg-alice_blue-500 px-14 py-8">
       <nav className="flex justify-between items-center">
         <div className="flex items-center">
-          <span className={`${playfair.className} text-3xl`}> MOZART. </span>
+          <span className={`${playfair.className} text-3xl`}> MOZART.  </span>
         </div>
         <div>
           <span className={`${poppins.className} me-10`}> How it works </span>
