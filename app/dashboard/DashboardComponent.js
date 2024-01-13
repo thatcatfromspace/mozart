@@ -6,14 +6,62 @@ import DropdownComponent from "../components/Dropdown";
 import { useEffect, useState } from "react";
 import { playfair, poppins, notoSans } from "../components/fonts";
 import Player from "./Player";
+import { Cookie } from "next/font/google";
 
 const DashboardComponent = () => {
   const cookies = new Cookies();
   const [displayName, setDisplayName] = useState("");
   const [displayURL, setDisplayURL] = useState("");
   const [profileURL, setprofileURL] = useState("");
+  const [topArtists, setTopArtists] = useState([
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+  ]);
+
+  const [topAlbums, setTopAlbums] = useState([
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+  ]);
 
   async function getData() {
+    const cookies = new Cookies();
+    
     axios
       .get("https://api.spotify.com/v1/me", {
         headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
@@ -22,6 +70,10 @@ const DashboardComponent = () => {
         setDisplayName(res.data.display_name);
         setDisplayURL(res.data.images[0].url);
         setprofileURL(res.data.external_urls.spotify);
+        cookies.set("uid", res.data.id, {
+          sameSite: true,
+          path: "./dashboard"
+        })
       });
   }
   useEffect(() => {

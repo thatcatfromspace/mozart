@@ -1,6 +1,6 @@
 interface StreamData {
-	username: string,
-	timestamp: number;
+	progress: number;
+	timestamp: number,
 	track: string,
 	album: string,
 	artist: string, 

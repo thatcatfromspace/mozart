@@ -16,6 +16,7 @@ const Player = () => {
     trackAlbum: "",
     trackName: "",
     trackAlbumArt: "",
+    progress: 0,
     timestamp: 0
   });
 
@@ -69,6 +70,7 @@ const Player = () => {
               trackAlbum: res.data.item.album.name,
               trackName: res.data.item.name,
               trackAlbumArt: res.data.item.album.images[2].url,
+              progress: res.data.progress_ms,
               timestamp: res.data.timestamp
             });
           }
@@ -76,20 +78,14 @@ const Player = () => {
         });
     }
     function postDataToDatabase() {
-      axios
-        .get("https://api.spotify.com/v1/me", {
-          headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
-        })
-        .then((res) => {
-          axios.post(`http://localhost:3000/api/streams/${res.data.id}`, {
-            username: res.data.display_name,
-            timestamp: currentTrackData.timestamp,
-            track: currentTrackData.trackName,
-            album: currentTrackData.trackAlbum,
-            artist: currentTrackData.trackArtist,
-            album_thumbnail_url: currentTrackData.trackAlbumArt,
-          });
-        });
+      axios.post(`http://localhost:3000/api/streams/${cookies.get("uid")}`, {
+        progress: currentTrackData.progress,
+        timestamp: currentTrackData.timestamp,
+        track: currentTrackData.trackName,
+        album: currentTrackData.trackAlbum,
+        artist: currentTrackData.trackArtist,
+        album_thumbnail_url: currentTrackData.trackAlbumArt,
+      });
     }
     if (!effectHasRan.current) {
       /* prevent useEffect from running twice, remove for prod */
