@@ -12,6 +12,51 @@ const DashboardComponent = () => {
   const [displayName, setDisplayName] = useState("");
   const [displayURL, setDisplayURL] = useState("");
   const [profileURL, setprofileURL] = useState("");
+  const [topArtists, setTopArtists] = useState([
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+  ]);
+
+  const [topAlbums, setTopAlbums] = useState([
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+    {
+      name: "",
+      url: "",
+    },
+  ]);
 
   async function getData() {
     axios

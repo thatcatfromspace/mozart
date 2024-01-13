@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, { params }) {
 	const query = searchParams.get("count");
 	/*  use count to specify number of records */
   const conn = await pool.getConnection();
-  const rows = await conn.query("SELECT USER_ID FROM access_tokens;");
+  const rows = await conn.query("SELECT USER_ID FROM ACCESS_TOKENS;");
   const userData = new Array();
   for (let user = 0; user < rows.length; user++) {
     userData.push({ id: rows[user] });
