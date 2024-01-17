@@ -14,28 +14,7 @@ const DashboardComponent = () => {
   const [displayName, setDisplayName] = useState("");
   const [displayURL, setDisplayURL] = useState("");
   const [profileURL, setprofileURL] = useState("");
-  const [topArtists, setTopArtists] = useImmer([
-    {
-      artist: "",
-      count: "",
-    },
-    {
-      artist: "",
-      count: "",
-    },
-    {
-      artist: "",
-      count: "",
-    },
-    {
-      artist: "",
-      count: "",
-    },
-    {
-      artist: "",
-      count: "",
-    },
-]);
+
 
   const [topAlbums, setTopAlbums] = useState([]);
 
