@@ -5,7 +5,6 @@ import Cookies from "universal-cookie";
 import DropdownComponent from "../components/Dropdown";
 import { useEffect, useRef, useState } from "react";
 import { playfair, poppins, notoSans } from "../components/fonts";
-import { useImmer } from "use-immer";
 import Player from "./Player";
 
 const DashboardComponent = () => {
@@ -14,7 +13,26 @@ const DashboardComponent = () => {
   const [displayName, setDisplayName] = useState("");
   const [displayURL, setDisplayURL] = useState("");
   const [profileURL, setprofileURL] = useState("");
-
+  const [topArtist1, setTopArtist1] = useState({
+    artist: "",
+    count: "",
+  });
+  const [topArtist2, setTopArtist2] = useState({
+    artist: "",
+    count: "",
+  });
+  const [topArtist3, setTopArtist3] = useState({
+    artist: "",
+    count: "",
+  });
+  const [topArtist4, setTopArtist4] = useState({
+    artist: "",
+    count: "",
+  });
+  const [topArtist5, setTopArtist5] = useState({
+    artist: "",
+    count: "",
+  });
 
   const [topAlbums, setTopAlbums] = useState([]);
 
@@ -42,7 +60,31 @@ const DashboardComponent = () => {
           `http://localhost:3000/api/top/artists/${cookies.get("uid")}?count=5`
         )
         .then((res) => {
-          setTopArtists([...topArtists, res.data]);
+          setTopArtist1({
+            ...topArtist1,
+            artist: res.data[0].artist,
+            count: res.data[0].artistCount,
+          });
+          setTopArtist2({
+            ...topArtist2,
+            artist: res.data[1].artist,
+            count: res.data[1].artistCount,
+          });
+          setTopArtist3({
+            ...topArtist3,
+            artist: res.data[2].artist,
+            count: res.data[2].artistCount,
+          });
+          setTopArtist4({
+            ...topArtist4,
+            artist: res.data[3].artist,
+            count: res.data[3].artistCount,
+          });
+          setTopArtist5({
+            ...topArtist5,
+            artist: res.data[4].artist,
+            count: res.data[4].artistCount,
+          });
         });
     }
     if (effectHasRan.current == false) {
@@ -85,21 +127,26 @@ const DashboardComponent = () => {
               {"Your top artists"}
             </span>
             <div className={`${notoSans.className} font-normal flex`}>
-              <div className="w-80 h-80 mt-10 p-2 border border-black">
-                {"YEAHYEAHARTIST"}
+              <div className="flex-col justify-between w-[310px] h-[310px] mt-10 p-2 border border-black">
+                <div className="font-bold">{topArtist1.artist}</div>
+                <div>{topArtist1.count} {topArtist1.count == 1? "stream": "streams"}</div>
               </div>
-              <div className=" grid grid-cols-2 grid-rows-2 mt-10">
-                <div className="w-40 p-2 border border-black">
-                  {"YEAHYEAHARTIST"}
+              <div className="grid grid-cols-2 grid-rows-2 mt-10">
+                <div className="flex-col justify-between w-[155px] p-2 border border-black">
+                  <div className="font-bold">{topArtist2.artist}</div>
+                  <div>{topArtist2.count} {topArtist2.count == 1? "stream": "streams"}</div>
                 </div>
-                <div className="w-40 p-2 border border-black">
-                  {"YEAHYEAHARTIST"}
+                <div className="flex-col justify-between w-[155px] p-2 border border-black">
+                  <div className="font-bold">{topArtist3.artist}</div>
+                  <div>{topArtist3.count} {topArtist3.count == 1? "stream": "streams"}</div>
                 </div>
-                <div className="w-40 p-2 border border-black">
-                  {"YEAHYEAHARTIST"}
+                <div className="flex-col justify-between w-[155px] p-2 border border-black">
+                  <div className="font-bold">{topArtist4.artist}</div>
+                  <div>{topArtist4.count} {topArtist4.count == 1? "stream": "streams"}</div>
                 </div>
-                <div className="w-40 p-2 border border-black">
-                  {"YEAHYEAHARTIST"}
+                <div className="flex-col justify-between w-[155px] p-2 border border-black">
+                  <div className="font-bold overflow-ellipsis">{topArtist5.artist}</div>
+                  <div>{topArtist5.count} {topArtist5.count == 1? "stream": "streams"} </div>
                 </div>
               </div>
             </div>

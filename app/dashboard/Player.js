@@ -74,7 +74,7 @@ const Player = () => {
               timestamp: res.data.timestamp
             });
           }
-          songTimeOutFunction();
+          songTimeOutFunction(); 
         });
     }
     function postDataToDatabase() {

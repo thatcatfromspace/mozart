@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "../../../../utils/db";
 
-export async function GET(req: NextRequest, { params }) {
+export async function GET(req: NextRequest, { params }) : Promise<NextResponse> {
   const conn = await pool.getConnection();
   const searchParams = req.nextUrl.searchParams;
   const countQuery: string = searchParams.get("count");
   const rows: Array<GetArtist> = await conn.query(
-    "SELECT ARTIST AS artist, COUNT(ARTIST) AS artistCount FROM STREAMS WHERE USER_ID = ? GROUP BY ARTIST LIMIT ? OFFSET 1",
+    "SELECT ARTIST AS artist, COUNT(ARTIST) AS artistCount FROM STREAMS WHERE USER_ID = ? GROUP BY ARTIST ORDER BY COUNT(ARTIST) DESC LIMIT ? OFFSET 1",
     [params.uid, Number(countQuery)]
   );
   // console.log(rows);
