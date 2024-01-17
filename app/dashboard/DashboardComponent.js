@@ -3,84 +3,77 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 import DropdownComponent from "../components/Dropdown";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { playfair, poppins, notoSans } from "../components/fonts";
+import { useImmer } from "use-immer";
 import Player from "./Player";
-import { Cookie } from "next/font/google";
 
 const DashboardComponent = () => {
   const cookies = new Cookies();
+  const effectHasRan = useRef(false);
   const [displayName, setDisplayName] = useState("");
   const [displayURL, setDisplayURL] = useState("");
   const [profileURL, setprofileURL] = useState("");
-  const [topArtists, setTopArtists] = useState([
+  const [topArtists, setTopArtists] = useImmer([
     {
-      name: "",
-      url: "",
+      artist: "",
+      count: "",
     },
     {
-      name: "",
-      url: "",
+      artist: "",
+      count: "",
     },
     {
-      name: "",
-      url: "",
+      artist: "",
+      count: "",
     },
     {
-      name: "",
-      url: "",
+      artist: "",
+      count: "",
     },
     {
-      name: "",
-      url: "",
+      artist: "",
+      count: "",
     },
-  ]);
+]);
 
-  const [topAlbums, setTopAlbums] = useState([
-    {
-      name: "",
-      url: "",
-    },
-    {
-      name: "",
-      url: "",
-    },
-    {
-      name: "",
-      url: "",
-    },
-    {
-      name: "",
-      url: "",
-    },
-    {
-      name: "",
-      url: "",
-    },
-  ]);
+  const [topAlbums, setTopAlbums] = useState([]);
 
-  async function getData() {
-    const cookies = new Cookies();
-    
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
-      })
-      .then((res) => {
-        setDisplayName(res.data.display_name);
-        setDisplayURL(res.data.images[0].url);
-        setprofileURL(res.data.external_urls.spotify);
-        cookies.set("uid", res.data.id, {
-          sameSite: true,
-          path: "./dashboard"
-        })
-      });
-  }
   useEffect(() => {
-    async function name() {
-      getData();
+    function getUserData() {
+      const cookies = new Cookies();
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: { Authorization: `Bearer ${cookies.get("accessToken")}` },
+        })
+        .then((res) => {
+          setDisplayName(res.data.display_name);
+          setDisplayURL(res.data.images[0].url);
+          setprofileURL(res.data.external_urls.spotify);
+          cookies.set("uid", res.data.id, {
+            sameSite: true,
+            path: "./dashboard",
+          });
+        });
     }
-    name();
+
+    function getTopArtists() {
+      axios
+        .get(
+          `http://localhost:3000/api/top/artists/${cookies.get("uid")}?count=5`
+        )
+        .then((res) => {
+          setTopArtists([...topArtists, res.data]);
+        });
+    }
+    if (effectHasRan.current == false) {
+      /* prevent useEffect from running twice, remove for prod */
+      getUserData();
+      getTopArtists();
+      effectHasRan.current = true;
+    } else {
+      effectHasRan.current = false;
+    }
   }, []);
 
   const signOut = () => {
@@ -113,14 +106,22 @@ const DashboardComponent = () => {
               {"Your top artists"}
             </span>
             <div className={`${notoSans.className} font-normal flex`}>
-              <div className="w-80 h-80 mt-10 border border-black">
-                {"Artist 1"}
+              <div className="w-80 h-80 mt-10 p-2 border border-black">
+                {"YEAHYEAHARTIST"}
               </div>
               <div className=" grid grid-cols-2 grid-rows-2 mt-10">
-                <div className="w-40 border border-black"> {"Artist 2"} </div>
-                <div className="w-40 border border-black"> {"Artist 3"} </div>
-                <div className="w-40 border border-black"> {"Artist 4"} </div>
-                <div className="w-40 border border-black"> {"Artist 5"} </div>
+                <div className="w-40 p-2 border border-black">
+                  {"YEAHYEAHARTIST"}
+                </div>
+                <div className="w-40 p-2 border border-black">
+                  {"YEAHYEAHARTIST"}
+                </div>
+                <div className="w-40 p-2 border border-black">
+                  {"YEAHYEAHARTIST"}
+                </div>
+                <div className="w-40 p-2 border border-black">
+                  {"YEAHYEAHARTIST"}
+                </div>
               </div>
             </div>
           </div>

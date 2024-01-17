@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import pool from "../../../utils/db";
 
 let currentProgress: number = 0;
@@ -6,6 +6,7 @@ let currentProgress: number = 0;
 export async function POST(req: Request, { params }) {
   const body: StreamData = await req.json();
   const conn = await pool.getConnection();
+  // console.log(conn.info);
   // console.log(body.progress);
   
   try {
@@ -33,12 +34,14 @@ export async function POST(req: Request, { params }) {
     return NextResponse.json({ data: "Request failed with error: " + error });
   }
   await conn.end();
-  // console.log("New entry!");
+  console.log("New entry!");
   return NextResponse.json({ data: "Request OK" });
 }
 
-export async function GET(req: Request, { params }) {
+export async function GET(req: NextRequest, { params }) {
   const conn = await pool.getConnection();
+  const searchParams = req.nextUrl.searchParams;
+  const countQuery: string = searchParams.get("count");
   try {
     const rows = await conn.query(`SELECT * FROM STREAMS WHERE USER_ID = ?`, [
       params.uid,

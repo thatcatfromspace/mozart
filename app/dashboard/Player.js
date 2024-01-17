@@ -78,14 +78,16 @@ const Player = () => {
         });
     }
     function postDataToDatabase() {
-      axios.post(`http://localhost:3000/api/streams/${cookies.get("uid")}`, {
-        progress: currentTrackData.progress,
+      if (currentTrackData.trackAlbum !== '' && currentTrackData.trackArtist !== ''){
+        axios.post(`http://localhost:3000/api/streams/${cookies.get("uid")}`, {
+        progress: currentTrackData.progress, 
         timestamp: currentTrackData.timestamp,
         track: currentTrackData.trackName,
         album: currentTrackData.trackAlbum,
         artist: currentTrackData.trackArtist,
         album_thumbnail_url: currentTrackData.trackAlbumArt,
       });
+      }
     }
     if (!effectHasRan.current) {
       /* prevent useEffect from running twice, remove for prod */
