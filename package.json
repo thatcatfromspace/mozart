@@ -12,7 +12,7 @@
     "axios": "^1.6.2",
     "lottie-react": "^2.4.0",
     "mariadb": "^3.2.3",
-    "next": "^14.0.4",
+    "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "universal-cookie": "^6.1.1"

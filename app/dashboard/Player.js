@@ -10,14 +10,16 @@ const Player = () => {
   const isPlaying = useRef(false);
   const isPaused = useRef(false);
   const effectHasRan = useRef(false);
-  const [songHasEnded, setSongHasEnded] = useState(false);
+  const [songHasEnded, setSongHasEnded] = useState(false); // useRef doesn't work here b/c updates don't trigger useEffect
   const [currentTrackData, setCurrentTrackData] = useState({
     trackArtist: "",
     trackAlbum: "",
     trackName: "",
     trackAlbumArt: "",
     progress: 0,
-    timestamp: 0
+    timestamp: 0,
+    artistUid: "",
+    albumUid: "",
   });
 
   const cookies = new Cookies();
@@ -50,7 +52,7 @@ const Player = () => {
   };
 
   useEffect(() => {
-    function fetchPlaybackDataFromSpotify() {
+    async function fetchPlaybackDataFromSpotify() {
       axios
         .get("https://api.spotify.com/v1/me/player/currently-playing", {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -71,28 +73,40 @@ const Player = () => {
               trackName: res.data.item.name,
               trackAlbumArt: res.data.item.album.images[2].url,
               progress: res.data.progress_ms,
-              timestamp: res.data.timestamp
+              timestamp: res.data.timestamp,
+              albumUid: res.data.item.album.id,
+              artistUid: res.data.item.album.artists[0].id
             });
           }
-          songTimeOutFunction(); 
+          songTimeOutFunction();
         });
     }
-    function postDataToDatabase() {
-      if (currentTrackData.trackAlbum !== '' && currentTrackData.trackArtist !== ''){
+    async function postDataToDatabase() {
+      if (
+        currentTrackData.trackAlbum !== "" &&
+        currentTrackData.trackArtist !== ""
+      ) {
         axios.post(`http://localhost:3000/api/streams/${cookies.get("uid")}`, {
-        progress: currentTrackData.progress, 
-        timestamp: currentTrackData.timestamp,
-        track: currentTrackData.trackName,
-        album: currentTrackData.trackAlbum,
-        artist: currentTrackData.trackArtist,
-        album_thumbnail_url: currentTrackData.trackAlbumArt,
-      });
+          progress: currentTrackData.progress,
+          timestamp: currentTrackData.timestamp,
+          track: currentTrackData.trackName,
+          album: currentTrackData.trackAlbum,
+          artist: currentTrackData.trackArtist,
+          album_thumbnail_url: currentTrackData.trackAlbumArt,
+          album_uid: currentTrackData.albumUid,
+          artist_uid: currentTrackData.artistUid
+        });
       }
+      axios.post(`http://localhost:3000/api/users/${cookies.get("uid")}`, {
+        accessToken: accessToken,
+        refreshToken: ""
+      })
     }
     if (!effectHasRan.current) {
       /* prevent useEffect from running twice, remove for prod */
       fetchPlaybackDataFromSpotify();
       postDataToDatabase();
+
       effectHasRan.current = true;
     } else {
       effectHasRan.current = false;

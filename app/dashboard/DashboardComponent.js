@@ -16,22 +16,27 @@ const DashboardComponent = () => {
   const [topArtist1, setTopArtist1] = useState({
     artist: "",
     count: "",
+    image: ""
   });
   const [topArtist2, setTopArtist2] = useState({
     artist: "",
     count: "",
+    image: ""
   });
   const [topArtist3, setTopArtist3] = useState({
     artist: "",
     count: "",
+    image: ""
   });
   const [topArtist4, setTopArtist4] = useState({
     artist: "",
     count: "",
+    image: ""
   });
   const [topArtist5, setTopArtist5] = useState({
     artist: "",
     count: "",
+    image: ""
   });
 
   const [topAlbums, setTopAlbums] = useState([]);
@@ -64,26 +69,31 @@ const DashboardComponent = () => {
             ...topArtist1,
             artist: res.data[0].artist,
             count: res.data[0].artistCount,
+            image: res.data[0].image
           });
           setTopArtist2({
             ...topArtist2,
             artist: res.data[1].artist,
             count: res.data[1].artistCount,
+            image: res.data[1].image
           });
           setTopArtist3({
             ...topArtist3,
             artist: res.data[2].artist,
             count: res.data[2].artistCount,
+            image: res.data[2].image
           });
           setTopArtist4({
             ...topArtist4,
             artist: res.data[3].artist,
             count: res.data[3].artistCount,
+            image: res.data[3].image
           });
           setTopArtist5({
             ...topArtist5,
             artist: res.data[4].artist,
             count: res.data[4].artistCount,
+            image: res.data[4].image
           });
         });
     }
@@ -127,7 +137,8 @@ const DashboardComponent = () => {
               {"Your top artists"}
             </span>
             <div className={`${notoSans.className} font-normal flex`}>
-              <div className="flex-col justify-between w-[310px] h-[310px] mt-10 p-2 border border-black">
+              <div className={`flex-col justify-between w-[310px] h-[310px] mt-10 p-2 border border-black bg-no-repeat`}
+              style={{ backgroundImage: `url(${topArtist1.image})`}}>
                 <div className="font-bold">{topArtist1.artist}</div>
                 <div>{topArtist1.count} {topArtist1.count == 1? "stream": "streams"}</div>
               </div>

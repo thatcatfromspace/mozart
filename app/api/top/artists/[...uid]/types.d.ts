@@ -1,4 +1,5 @@
 interface GetArtist {
     artist: string,
-    artistCount: number
+    artistCount: number,
+    image: string
 }

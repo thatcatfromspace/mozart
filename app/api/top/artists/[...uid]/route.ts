@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, { params }) : Promise<NextResponse> 
   const searchParams = req.nextUrl.searchParams;
   const countQuery: string = searchParams.get("count");
   const rows: Array<GetArtist> = await conn.query(
-    "SELECT ARTIST AS artist, COUNT(ARTIST) AS artistCount FROM STREAMS WHERE USER_ID = ? GROUP BY ARTIST ORDER BY COUNT(ARTIST) DESC LIMIT ? OFFSET 1",
+    "SELECT ARTIST AS artist, COUNT(ARTIST) AS artistCount, ARTIST_IMAGE_URL as image FROM STREAMS WHERE USER_ID = ? GROUP BY ARTIST ORDER BY COUNT(ARTIST) DESC LIMIT ? OFFSET 1",
     [params.uid, Number(countQuery)]
   );
   // console.log(rows);
@@ -16,9 +16,10 @@ export async function GET(req: NextRequest, { params }) : Promise<NextResponse> 
     topArtists.push({
       artist: individualArtist.artist,
       artistCount: Number(individualArtist.artistCount),
+      image: individualArtist.image
     });
   });
-  await conn.end();
+  conn.end();
   // fix: implement system to fetch artist image URL
   return NextResponse.json(topArtists);
 }
